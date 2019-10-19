@@ -1,5 +1,5 @@
 package com.mechanitis.mongodb.gettingstarted.person;
-
+//https://www.mongodb.com/blog/post/getting-started-with-mongodb-and-java-part-i
 public class Address {
     private final String street;
     private final String town;

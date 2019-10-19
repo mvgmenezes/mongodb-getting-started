@@ -17,10 +17,10 @@ public class Exercise2MongoClientTest {
     public void shouldGetADatabaseFromTheMongoClient() throws Exception {
         // Given
         // TODO any setup
-
+        MongoClient mongoClient = new MongoClient();
         // When
         //TODO get the database from the client
-        DB database = null;
+        DB database = mongoClient.getDB("mongo-get-started");
 
         // Then
         assertThat(database, is(notNullValue()));

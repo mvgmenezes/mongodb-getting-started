@@ -3,11 +3,7 @@ package com.mechanitis.mongodb.gettingstarted;
 import com.mechanitis.mongodb.gettingstarted.person.Address;
 import com.mechanitis.mongodb.gettingstarted.person.Person;
 import com.mechanitis.mongodb.gettingstarted.person.PersonAdaptor;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.*;
 import org.junit.Test;
 
 import java.net.UnknownHostException;
@@ -48,9 +44,18 @@ public class Exercise3InsertTest {
 
         Person charlie = new Person("charlie", "Charles", new Address("74 That Place", "LondonTown", 1234567890), asList(1, 74));
 
-        // When
-        // TODO: insert Charlie into the collection
+        // Using the object DBObject
+        DBObject person = new BasicDBObject
+                ("_id", charlie.getName())
+                .append("address", new BasicDBObject("street", charlie.getAddress().getStreet())
+                                        .append("town", charlie.getAddress().getTown())
+                                        .append("phone", charlie.getAddress().getPhone())
+                .append("books", charlie.getBookIds()));
 
+        //Using the class adapter
+        person = PersonAdaptor.toDBObject(charlie);
+
+        collection.save(person);
         // Then
         assertThat(collection.find().count(), is(1));
 
